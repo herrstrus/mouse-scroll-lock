@@ -1,8 +1,21 @@
 # ScrollLock-toggle no-sleep routine
 
-This is a Bash script that simulates the Scroll Lock key to prevent a computer from going to sleep. The script toggles the Scroll Lock key every few seconds to keep the computer awake. The script also displays the elapsed time since it started running at regular intervals.
+This is a Bash script that simulates the Scroll Lock key to prevent a computer from going to sleep. The script keep the computer awake.
 
-# Bash script - Linux and macOS
+# Bash script with AppleScript - macOS
+## Usage
+1. Open terminal machine.
+2. Navigate to the directory where the script is located using the cd command.
+3. Run the following command to execute the script:
+```bash
+.\keylock-mac.sh
+```
+
+The reason for the 300-second delay is that your Teams’ status switches to away after exactly five minutes (300 seconds).
+```command+2``` - is a keyboard shortcut to switch to the chat panel of teams which basically simulates clicking on the chat icon.
+```command+0``` - zooming to 100% using 
+
+# Bash script - Linux
 ## Prerequisites
 
 To run this script, you need to have ```xdotool``` installed on your system. ```xdotool``` is a command-line tool that is used to simulate key presses and mouse clicks. Here are the installation instructions for different operating systems:
@@ -69,4 +82,31 @@ Please note:** The script is provided for educational purposes only and should n
 You can also pass parameters to the script by adding them after the script name. For example, to pass the value ```10``` to the ```$sleep``` parameter and the value ```5``` to the ```$interval``` parameter, run the following command:
 ```powershell
 .\script.ps1 -sleep 10 -interval 5
+```
+
+# Troubleshooting
+The error ```failed creating new xdo instance``` can be caused by the lack of ```XQuartz``` on your macOS system. XQuartz is a free and open-source X11 server for macOS. It provides a compatibility layer that allows applications that are designed for X11 to run on macOS. The ```xdotool``` command used in the script requires XQuartz to function properly.
+
+Without XQuartz installed, the xdotool command cannot communicate with the X server, which is necessary for simulating keyboard inputs. This will result in the error message ```failed creating new xdo instance```.
+
+You can download XQuartz from the official website: https://www.xquartz.org/ or by the terminal:
+```bash
+curl https://www.xquartz.org/download/XQuartz-22.2.0.pkg -o XQuartz-22.2.0.pkg
+```
+
+Run the following command to install XQuartz:
+```bash
+open XQuartz-22.2.0.pkg
+```
+The logoff-login might be required to apply the changes.
+Once XQuartz is installed, you should be able to run the script without encountering the error message.
+
+### Additionaly in case when script is still not working
+1. Make sure that XQuartz is running. You can start XQuartz by opening it from the Applications folder or by running the following command in the Terminal:
+```bash
+open -a XQuartz
+```
+2. Make sure that the DISPLAY environment variable is set correctly. The DISPLAY variable tells xdotool which X11 display to use. You can set the DISPLAY variable by running the following command in the Terminal:
+```bash
+export DISPLAY=:0
 ```
